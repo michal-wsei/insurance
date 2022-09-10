@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  server-insurance:
+    build: ./insurance
+    ports:
+     - 8080:8080
+    tty:
+      true
+    restart:
+      unless-stopped
+
+  server-email-sender:
+    build: ./email-sender
+    ports:
+      - 8081:8081
+    tty:
+      true
+    restart:
+      unless-stopped
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=wsei
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=wsei
